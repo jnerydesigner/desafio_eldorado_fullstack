@@ -1,0 +1,24 @@
+ build: 
+      context: /mnt/c/Users/jande/Projects/desafio-mecanica/frontend
+      dockerfile: /mnt/c/Users/jande/Projects/desafio-mecanica/frontend/Dockerfile
+    entrypoint: /mnt/c/Users/jande/Projects/desafio-mecanica/frontend/.docker/entrypoint.sh
+
+
+
+ volumes:
+      - /mnt/c/Users/jande/Projects/desafio-mecanica/backend/Docker/Volumes/Mysql:/var/lib/mysql:rw
+
+      react-ui:
+    container_name: react_docker
+    build: 
+      context: ./frontend
+    ports:
+      - 13000:3000
+    stdin_open: true
+    volumes:
+       - ./frontend:/mnt/c/Users/jande/Projects/desafio-mecanica/frontend
+       - /mnt/c/Users/jande/Projects/desafio-mecanica/frontend/node_modules
+    depends_on:
+      - mysql-db
+    networks:
+      - mysql-compose-network
